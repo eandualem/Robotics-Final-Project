@@ -1,8 +1,8 @@
 # Robotics-Final-Project and Assignment
 
 ## Solutions:
-  Solution to Assignment - Model Design: Robotics-Master
-  Solution to Project: Robotics
+  \tSolution to Assignment - Model Design: Robotics-Master
+  \nSolution to Project: Robotics
 
 ## Group members:
   1. Daniel Zelalem 		Atr/2026/08
