@@ -1,0 +1,527 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+	<model name="robot">
+		<link name="body_link">
+			<pose>0 0 0.19649999999999998 0 0 0</pose>
+			<inertial>
+				<inertia>
+					<ixx>0.30208333</ixx>
+					<iyy>0.07708333</iyy>
+					<izz>0.37500000</izz>
+				</inertia>
+				<mass>10.00000000</mass>
+			</inertial>
+			<visual name="body_link_vis">
+				<geometry>
+					<box>
+						<size>0.3 0.6 0.049999999999999996</size>
+					</box>
+				</geometry>
+			</visual>
+			<collision name="body_link_col">
+				<geometry>
+					<box>
+						<size>0.3 0.6 0.049999999999999996</size>
+					</box>
+				</geometry>
+			</collision>
+			<sensor name="body_link_sensor" type="contact">
+				<contact>
+					<collision>body_link_col</collision>
+				</contact>
+				<always_on>1</always_on>
+				<update_rate>30</update_rate>
+				<visualize>true</visualize>
+				<plugin filename="libcontact_plugin.so" name="my_plugin"/>
+			</sensor>
+		</link>
+
+		<link name="camera_carrier">
+			<pose>0 -0.27 0.22149999999999997 0 0 0</pose>
+			<inertial>
+				<inertia>
+					<ixx>0.00024375</ixx>
+					<iyy>0.00024375</iyy>
+					<izz>0.00045000</izz>
+				</inertia>
+				<mass>1.00000000</mass>
+			</inertial>
+			<visual name="camera_carrier_vis">
+				<geometry>
+					<cylinder>
+						<radius>0.015</radius>
+						<length>0.04</length>
+					</cylinder>
+				</geometry>
+			</visual>
+
+			<collision name="camera_carrier_col">
+				<geometry>
+					<cylinder>
+						<radius>0.03</radius>
+						<length>0.015</length>
+					</cylinder>
+				</geometry>
+			</collision>
+
+			<sensor name="camera_sensor" type="depth">
+				<camera>
+					<horizontal_fov>1.8</horizontal_fov>
+					<image>
+						<width>1280</width>
+						<height>960</height>
+						<format>R8G8B8</format>
+					</image>
+					<clip>
+						<near>0.1</near>
+						<far>100</far>
+					</clip>
+				</camera>
+				<plugin filename="libgazebo_ros_openni_kinect.so" name="multirotor_rgbd_plugin">
+					<updateRate>20.0</updateRate>
+					<cameraName>rgbd_camera</cameraName>
+					<frameName>rgbd_camera_link</frameName>
+					<imageTopicName>rgb/image_raw</imageTopicName>
+					<cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+					<pointCloudTopicName>depth/points</pointCloudTopicName>
+					<depthImageTopicName>depth/image_raw</depthImageTopicName>
+					<depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+					<pointCloudCutoff>0.4</pointCloudCutoff>
+					<pointCloudCutoffMax>5.0</pointCloudCutoffMax>
+				</plugin>
+				<visualize>True</visualize>
+				<always_on>True</always_on>
+				<update_rate>30</update_rate>
+			</sensor>
+		</link>
+
+		<joint name="bodyLink_camera_carrier" type="fixed">
+			<pose>0 0 0 0 0 0</pose>
+			<child>camera_carrier</child>
+			<parent>body_link</parent>
+		</joint>
+
+		<link name="susp_1">
+			<pose>0.13125 -0.22499999999999998 0.12375 0 0 0</pose>
+			<inertial>
+				<inertia>
+					<ixx>0.00088008</ixx>
+					<iyy>0.00088008</iyy>
+					<izz>0.00017578</izz>
+				</inertia>
+				<mass>1.00000000</mass>
+			</inertial>
+			<visual name="susp_1_vis">
+				<geometry>
+					<cylinder>
+						<radius>0.01875</radius>
+						<length>0.0975</length>
+					</cylinder>
+				</geometry>
+			</visual>
+			<collision name="susp_1_col">
+				<geometry>
+					<cylinder>
+						<radius>0.01875</radius>
+						<length>0.0975</length>
+					</cylinder>
+				</geometry>
+			</collision>
+		</link>
+		<link name="wheel_1">
+			<pose>0.18125000000000002 -0.22499999999999998 0.075 0 1.5707963267948966 0</pose>
+			<inertial>
+				<inertia>
+					<ixx>0.00281250</ixx>
+					<iyy>0.00168362</iyy>
+					<izz>0.00168362</izz>
+				</inertia>
+				<mass>1.00000000</mass>
+			</inertial>
+			<visual name="wheel_1_vis">
+				<geometry>
+					<cylinder>
+						<radius>0.075</radius>
+						<length>0.05769230769230769</length>
+					</cylinder>
+				</geometry>
+			</visual>
+			<collision name="wheel_1_col">
+				<geometry>
+					<cylinder>
+						<radius>0.075</radius>
+						<length>0.05769230769230769</length>
+					</cylinder>
+				</geometry>
+			</collision>
+		</link>
+		<joint name="susp1_body" type="fixed">
+			<pose>0 0 0.04875 0 0 0</pose>
+			<child>susp_1</child>
+			<parent>body_link</parent>
+		</joint>
+		<joint name="susp_axel_1" type="fixed">
+			<pose>0 0 -0.025 0 0 0</pose>
+			<child>axel_1</child>
+			<parent>susp_1</parent>
+		</joint>
+		<link name="susp_2">
+			<pose>0.13125 0.22499999999999998 0.12375 0 0 0</pose>
+			<inertial>
+				<inertia>
+					<ixx>0.00088008</ixx>
+					<iyy>0.00088008</iyy>
+					<izz>0.00017578</izz>
+				</inertia>
+				<mass>1.00000000</mass>
+			</inertial>
+			<visual name="susp_2_vis">
+				<geometry>
+					<cylinder>
+						<radius>0.01875</radius>
+						<length>0.0975</length>
+					</cylinder>
+				</geometry>
+			</visual>
+			<collision name="susp_2_col">
+				<geometry>
+					<cylinder>
+						<radius>0.01875</radius>
+						<length>0.0975</length>
+					</cylinder>
+				</geometry>
+			</collision>
+		</link>
+		<link name="wheel_2">
+			<pose>0.18125000000000002 0.22499999999999998 0.075 0 1.5707963267948966 0</pose>
+			<inertial>
+				<inertia>
+					<ixx>0.00281250</ixx>
+					<iyy>0.00168362</iyy>
+					<izz>0.00168362</izz>
+				</inertia>
+				<mass>1.00000000</mass>
+			</inertial>
+			<visual name="wheel_2_vis">
+				<geometry>
+					<cylinder>
+						<radius>0.075</radius>
+						<length>0.05769230769230769</length>
+					</cylinder>
+				</geometry>
+			</visual>
+			<collision name="wheel_2_col">
+				<geometry>
+					<cylinder>
+						<radius>0.075</radius>
+						<length>0.05769230769230769</length>
+					</cylinder>
+				</geometry>
+			</collision>
+		</link>
+		<joint name="susp2_body" type="fixed">
+			<pose>0 0 0.04875 0 0 0</pose>
+			<child>susp_2</child>
+			<parent>body_link</parent>
+		</joint>
+		<joint name="susp_axel_2" type="fixed">
+			<pose>0 0 -0.025 0 0 0</pose>
+			<child>axel_2</child>
+			<parent>susp_2</parent>
+		</joint>
+		<link name="susp_4">
+			<pose>-0.13125 -0.22499999999999998 0.12375 0 0 0</pose>
+			<inertial>
+				<inertia>
+					<ixx>0.00088008</ixx>
+					<iyy>0.00088008</iyy>
+					<izz>0.00017578</izz>
+				</inertia>
+				<mass>1.00000000</mass>
+			</inertial>
+			<visual name="susp_4_vis">
+				<geometry>
+					<cylinder>
+						<radius>0.01875</radius>
+						<length>0.0975</length>
+					</cylinder>
+				</geometry>
+			</visual>
+			<collision name="susp_4_col">
+				<geometry>
+					<cylinder>
+						<radius>0.01875</radius>
+						<length>0.0975</length>
+					</cylinder>
+				</geometry>
+			</collision>
+		</link>
+		<link name="wheel_4">
+			<pose>-0.18125000000000002 -0.22499999999999998 0.075 0 1.5707963267948966 0</pose>
+			<inertial>
+				<inertia>
+					<ixx>0.00281250</ixx>
+					<iyy>0.00168362</iyy>
+					<izz>0.00168362</izz>
+				</inertia>
+				<mass>1.00000000</mass>
+			</inertial>
+			<visual name="wheel_4_vis">
+				<geometry>
+					<cylinder>
+						<radius>0.075</radius>
+						<length>0.05769230769230769</length>
+					</cylinder>
+				</geometry>
+			</visual>
+			<collision name="wheel_4_col">
+				<geometry>
+					<cylinder>
+						<radius>0.075</radius>
+						<length>0.05769230769230769</length>
+					</cylinder>
+				</geometry>
+			</collision>
+		</link>
+		<joint name="susp4_body" type="fixed">
+			<pose>0 0 0.04875 0 0 0</pose>
+			<child>susp_4</child>
+			<parent>body_link</parent>
+		</joint>
+		<joint name="susp_axel_4" type="fixed">
+			<pose>0 0 0.025 0 0 0</pose>
+			<child>axel_4</child>
+			<parent>susp_4</parent>
+		</joint>
+		<link name="axel_1">
+			<pose>0.15625 -0.22499999999999998 0.075 0 1.5707963267948966 0</pose>
+			<inertial>
+				<inertia>
+					<ixx>0.00003600</ixx>
+					<iyy>0.00012217</iyy>
+					<izz>0.00012217</izz>
+				</inertia>
+				<mass>0.50000000</mass>
+			</inertial>
+			<visual name="axel_1_vis">
+				<geometry>
+					<cylinder>
+						<radius>0.012</radius>
+						<length>0.05</length>
+					</cylinder>
+				</geometry>
+			</visual>
+			<collision name="axel_1_col">
+				<geometry>
+					<cylinder>
+						<radius>0.012</radius>
+						<length>0.05</length>
+					</cylinder>
+				</geometry>
+			</collision>
+		</link>
+		<joint name="axel_wheel_1" type="revolute">
+			<pose>0 0 -0.028846153846153844 0 -1.5707963267948966 0</pose>
+			<child>wheel_1</child>
+			<parent>axel_1</parent>
+			<axis>
+				<xyz>0 0 1</xyz>
+				<dynamics>
+					<friction>0.05</friction>
+					<damping>0.03</damping>
+				</dynamics>
+			</axis>
+		</joint>
+		<link name="axel_2">
+			<pose>0.15625 0.22499999999999998 0.075 0 1.5707963267948966 0</pose>
+			<inertial>
+				<inertia>
+					<ixx>0.00003600</ixx>
+					<iyy>0.00012217</iyy>
+					<izz>0.00012217</izz>
+				</inertia>
+				<mass>0.50000000</mass>
+			</inertial>
+			<visual name="axel_2_vis">
+				<geometry>
+					<cylinder>
+						<radius>0.012</radius>
+						<length>0.05</length>
+					</cylinder>
+				</geometry>
+			</visual>
+			<collision name="axel_2_col">
+				<geometry>
+					<cylinder>
+						<radius>0.012</radius>
+						<length>0.05</length>
+					</cylinder>
+				</geometry>
+			</collision>
+		</link>
+		<joint name="axel_wheel_2" type="revolute">
+			<pose>0 0 -0.028846153846153844 0 -1.5707963267948966 0</pose>
+			<child>wheel_2</child>
+			<parent>axel_2</parent>
+			<axis>
+				<xyz>1 0 0</xyz>
+				<dynamics>
+					<friction>0.05</friction>
+					<damping>0.03</damping>
+				</dynamics>
+			</axis>
+		</joint>
+		<link name="axel_3">
+			<pose>-0.15625 0.22499999999999998 0.075 0 1.5707963267948966 0</pose>
+			<inertial>
+				<inertia>
+					<ixx>0.00003600</ixx>
+					<iyy>0.00012217</iyy>
+					<izz>0.00012217</izz>
+				</inertia>
+				<mass>0.50000000</mass>
+			</inertial>
+			<visual name="axel_3_vis">
+				<geometry>
+					<cylinder>
+						<radius>0.012</radius>
+						<length>0.05</length>
+					</cylinder>
+				</geometry>
+			</visual>
+			<collision name="axel_3_col">
+				<geometry>
+					<cylinder>
+						<radius>0.012</radius>
+						<length>0.05</length>
+					</cylinder>
+				</geometry>
+			</collision>
+		</link>
+		<joint name="axel_wheel_3" type="revolute">
+			<pose>0 0 0.028846153846153844 0 -1.5707963267948966 0</pose>
+			<child>wheel_3</child>
+			<parent>axel_3</parent>
+			<axis>
+				<xyz>1 0 0</xyz>
+				<dynamics>
+					<friction>0.05</friction>
+					<damping>0.03</damping>
+				</dynamics>
+			</axis>
+		</joint>
+		<link name="axel_4">
+			<pose>-0.15625 -0.22499999999999998 0.075 0 1.5707963267948966 0</pose>
+			<inertial>
+				<inertia>
+					<ixx>0.00003600</ixx>
+					<iyy>0.00012217</iyy>
+					<izz>0.00012217</izz>
+				</inertia>
+				<mass>0.50000000</mass>
+			</inertial>
+			<visual name="axel_4_vis">
+				<geometry>
+					<cylinder>
+						<radius>0.012</radius>
+						<length>0.05</length>
+					</cylinder>
+				</geometry>
+			</visual>
+			<collision name="axel_4_col">
+				<geometry>
+					<cylinder>
+						<radius>0.012</radius>
+						<length>0.05</length>
+					</cylinder>
+				</geometry>
+			</collision>
+		</link>
+		<joint name="axel_wheel_4" type="revolute">
+			<pose>0 0 0.028846153846153844 0 -1.5707963267948966 0</pose>
+			<child>wheel_4</child>
+			<parent>axel_4</parent>
+			<axis>
+				<xyz>0 0 1</xyz>
+				<dynamics>
+					<friction>0.05</friction>
+					<damping>0.03</damping>
+				</dynamics>
+			</axis>
+		</joint>
+		<link name="susp_3">
+			<pose>-0.13125 0.22499999999999998 0.12375 0 0 0</pose>
+			<inertial>
+				<inertia>
+					<ixx>0.00088008</ixx>
+					<iyy>0.00088008</iyy>
+					<izz>0.00017578</izz>
+				</inertia>
+				<mass>1.00000000</mass>
+			</inertial>
+			<visual name="susp_3_vis">
+				<geometry>
+					<cylinder>
+						<radius>0.01875</radius>
+						<length>0.0975</length>
+					</cylinder>
+				</geometry>
+			</visual>
+			<collision name="susp_3_col">
+				<geometry>
+					<cylinder>
+						<radius>0.01875</radius>
+						<length>0.0975</length>
+					</cylinder>
+				</geometry>
+			</collision>
+		</link>
+		<link name="wheel_3">
+			<pose>-0.18125000000000002 0.22499999999999998 0.075 0 1.5707963267948966 0</pose>
+			<inertial>
+				<inertia>
+					<ixx>0.00281250</ixx>
+					<iyy>0.00168362</iyy>
+					<izz>0.00168362</izz>
+				</inertia>
+				<mass>1.00000000</mass>
+			</inertial>
+			<visual name="wheel_3_vis">
+				<geometry>
+					<cylinder>
+						<radius>0.075</radius>
+						<length>0.05769230769230769</length>
+					</cylinder>
+				</geometry>
+			</visual>
+			<collision name="wheel_3_col">
+				<geometry>
+					<cylinder>
+						<radius>0.075</radius>
+						<length>0.05769230769230769</length>
+					</cylinder>
+				</geometry>
+			</collision>
+		</link>
+		<joint name="susp3_body" type="fixed">
+			<pose>0 0 0.04875 0 0 0</pose>
+			<child>susp_3</child>
+			<parent>body_link</parent>
+		</joint>
+		<joint name="susp_axel_3" type="fixed">
+			<pose>0 0 0.025 0 0 0</pose>
+			<child>axel_3</child>
+			<parent>susp_3</parent>
+		</joint>
+		
+		<plugin name="ackerman_control" filename="libackerman_plugin.so">
+        <L>0.44999999999999996</L>
+        <T>0.36250000000000004</T>
+        <right_front_wheel_joint>axel_wheel_4</right_front_wheel_joint>
+        <left_front_wheel_joint>axel_wheel_1</left_front_wheel_joint>
+        <right_rear_wheel_joint>axel_wheel_3</right_rear_wheel_joint>
+        <left_rear_wheel_joint>axel_wheel_2</left_rear_wheel_joint>    
+      </plugin>
+		
+	</model>
+</sdf>

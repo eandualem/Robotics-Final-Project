@@ -1,0 +1,2 @@
+robot_description:robot_gazebo
+-DCATKIN_DEVEL_PREFIX=/home/elias/Desktop/ws/src/robotics/devel -DCMAKE_INSTALL_PREFIX=/home/elias/Desktop/ws/src/robotics/install -G Unix Makefiles
