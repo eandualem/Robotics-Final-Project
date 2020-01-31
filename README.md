@@ -1,16 +1,16 @@
 # Robotics-Final-Project and Assignment
 
 ## Solutions:
-  \tSolution to Assignment - Model Design: Robotics-Master
-  \nSolution to Project: Robotics
+- Solution to Assignment - Model Design: robotics-master
+- Solution to Project: robotics
 
 ## Group members:
-  1. Daniel Zelalem 		Atr/2026/08
-  2. Elias Andualem			Atr/9391/08
-  3. Nabil seid				  Atr/5725/08
-  4. Zelalem Getahun		Atr/9374/08
-  5. Eyob yirgu         Atr/9987/08
-  6. Abel Tilahun       Atr/0600/08
+1. Daniel Zelalem 		Atr/2026/08
+2. Elias Andualem			Atr/9391/08
+3. Nabil seid				  Atr/5725/08
+4. Zelalem Getahun		Atr/9374/08
+5. Eyob yirgu         Atr/9987/08
+6. Abel Tilahun       Atr/0600/08
   
 
 
